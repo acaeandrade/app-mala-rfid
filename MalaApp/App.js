@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
+import axios from 'axios';
 import { StyleSheet, TextInput, Button, View, ImageBackground, Image, SafeAreaView, Modal } from 'react-native';
 
 import Cadastre from './src/Components/Cadastro/Cadastro.js';
-import Login from './src/Components/Login/Login.js';
+//import Login from './src/Components/Login/Login.js';
 import Bottom from './Bottom.js';
 import Interface from './src/Components/UserScreen/Interface.js';
-import Stater from './src/Components/Login/Login.js';
+//import Stater from './src/Components/Login/Login.js';
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -74,21 +75,21 @@ function HomeScreen({navigation}) {
                               title="Login"
                               style={stylesLog.butt}
                               onPress={() => { 
-                                      ent.entuser = usern;
-                                      ent.passent = passw;
-                                      console.log(ent);
-                                      setStater(true);
-                                      navigation.push('UserPlace');
-                                      //sendData(ent);
-                                      
-                                      // async () => {
-                                      
-                                      //     const requester = await fetch('https://10.0.2.2:5000/users')
-                                      //     const item = await requester.json();
-                                      //     console.log(item);
-                                      
-                                      // }
-                                  }
+                                        ent.entuser = usern;
+                                        ent.passent = passw;
+                                        console.log(ent);
+                                        setStater(true);
+
+                                        axios.post('http://192.168.0.8:5000/login', {usern, passw}).then(response => {
+                                          
+                                          console.log(response);
+                                          if(response.status == 200){
+                                            navigation.push('UserPlace');
+                                          }
+                                          
+                                        
+                                        });
+                                      }     
                               }
                           />
                           
